@@ -4,7 +4,7 @@ import Home from "../components/Home";
 import Lavoisier from "../components/Lavoisier";
 import Descartes from "../components/Descartes";
 import Musiciens from "../components/Musiciens";
-
+import Profil from "../components/Profil";
 Vue.use(VueRouter);
 
 const routes = [
@@ -27,6 +27,11 @@ const routes = [
     path: "/musiciens",
     name: "musiciens",
     component: Musiciens,
+  },
+  {
+    path: "/profil",
+    name: "profil",
+    component: Profil,
   },
 ];
 

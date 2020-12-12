@@ -1,8 +1,10 @@
 <template>
   <div class="nav">
     <div class="nav_title">
-      <router-link @click="scrollUp" class="nav_link" :to="{ name: 'home' }"
-        ><p :class="{ black: change_color }">Lets Jam</p></router-link
+      <router-link class="nav_link" :to="{ name: 'home' }"
+        ><p @click="scrollUp" :class="{ black: change_color }">
+          Lets Jam
+        </p></router-link
       >
     </div>
     <div class="nav_links">
@@ -34,8 +36,9 @@
             </p></router-link
           >
         </li>
-        <li>
-          <router-link :to="{}"><span>Se connecter</span></router-link>
+        <li id="button">
+          <span v-show="connect" @click="connectFunction">Mon profil</span
+          ><span v-show="!connect" @click="connectFunction">Se connecter</span>
         </li>
       </ul>
     </div>
@@ -43,23 +46,42 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
-  props: {
-    change_color: Boolean,
+  props: ["change_color"],
+  computed: {
+    ...mapState(["connect"]),
   },
   methods: {
     scrollUp() {
-      console.log(window.height);
       window.scrollTo({
         top: 0,
         behavior: "smooth",
       });
+    },
+    connectFunction() {
+      if (this.connect) {
+        this.$router.push({ name: "profil" });
+      } else {
+        this.scrollUp();
+        this.$emit("connectform");
+      }
     },
   },
 };
 </script>
 
 <style scoped>
+#button:hover {
+  transform: scale(1.05);
+}
+#button {
+  color: white;
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 2em;
+  font-weight: bold;
+}
 span {
   border: 2px solid #ac1010;
   border-radius: 30px;
