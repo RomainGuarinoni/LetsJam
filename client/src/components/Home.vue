@@ -208,6 +208,12 @@ export default {
   created() {
     window.addEventListener("scroll", this.changeColor);
   },
+  mounted: function() {
+    if (localStorage.getItem("nom") != null) {
+      // localStorage.clear();       pour debug
+      this.$store.dispatch("connect");
+    }
+  },
   destroyed() {
     window.removeEventListener("scroll", this.changeColor);
   },

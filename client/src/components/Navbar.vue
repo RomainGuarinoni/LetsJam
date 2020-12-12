@@ -10,7 +10,10 @@
     <div class="nav_links">
       <ul>
         <li>
-          <router-link class="nav_link" :to="{ name: 'lavoisier' }"
+          <router-link
+            v-show="connect"
+            class="nav_link "
+            :to="{ name: 'lavoisier' }"
             ><p :class="{ black: change_color }" style="margin:0;">
               Lavoisier
             </p></router-link
@@ -18,7 +21,8 @@
         </li>
         <li>
           <router-link
-            class="nav_link"
+            class="nav_link "
+            v-show="connect"
             :class="{ black: change_color }"
             :to="{ name: 'descartes' }"
             ><p :class="{ black: change_color }" style="margin:0;">
@@ -28,7 +32,8 @@
         </li>
         <li>
           <router-link
-            class="nav_link"
+            class="nav_link "
+            v-show="connect"
             :class="{ black: change_color }"
             :to="{ name: 'musiciens' }"
             ><p :class="{ black: change_color }" style="margin:0;">
