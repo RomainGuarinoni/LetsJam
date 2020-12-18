@@ -1,10 +1,11 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../components/Home";
-import Lavoisier from "../components/Lavoisier";
-import Descartes from "../components/Descartes";
 import Musiciens from "../components/Musiciens";
 import Profil from "../components/Profil";
+import Modify from "../components/Modify";
+import Stat from "../components/Stat";
+import Salle from "../components/Salle";
 Vue.use(VueRouter);
 
 const routes = [
@@ -14,14 +15,10 @@ const routes = [
     component: Home,
   },
   {
-    path: "/lavoisier",
-    name: "lavoisier",
-    component: Lavoisier,
-  },
-  {
-    path: "/descartes",
-    name: "descartes",
-    component: Descartes,
+    path: "/salle/:salle",
+    name: "Salle",
+    component: Salle,
+    props: true,
   },
   {
     path: "/musiciens",
@@ -32,6 +29,18 @@ const routes = [
     path: "/profil",
     name: "profil",
     component: Profil,
+    children: [
+      {
+        path: "statistiques",
+        name: "Stat",
+        component: Stat,
+      },
+      {
+        path: "modifier",
+        name: "Modify",
+        component: Modify,
+      },
+    ],
   },
 ];
 

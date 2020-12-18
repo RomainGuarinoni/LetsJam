@@ -13,7 +13,7 @@
           <router-link
             v-show="connect"
             class="nav_link "
-            :to="{ name: 'lavoisier' }"
+            :to="{ path: '/salle/lavoisier' }"
             ><p :class="{ black: change_color }" style="margin:0;">
               Lavoisier
             </p></router-link
@@ -24,7 +24,7 @@
             class="nav_link "
             v-show="connect"
             :class="{ black: change_color }"
-            :to="{ name: 'descartes' }"
+            :to="{ path: '/salle/descartes' }"
             ><p :class="{ black: change_color }" style="margin:0;">
               Descartes
             </p></router-link
@@ -119,6 +119,7 @@ span {
 ul {
   list-style-type: none;
   display: flex;
+  margin-right: 20px;
 }
 li {
   margin: 0 10px;

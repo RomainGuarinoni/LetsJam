@@ -6,9 +6,6 @@
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   font-family: "Roboto", sans-serif;
 }
 * {
@@ -17,9 +14,9 @@
 }
 ::-webkit-scrollbar {
   width: 2px;
-  background: black;
+  background: white;
 }
 ::-webkit-scrollbar-thumb {
-  background: white;
+  background: black;
 }
 </style>

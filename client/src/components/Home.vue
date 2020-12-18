@@ -5,7 +5,7 @@
       <i id="closeButton" @click="quit" class="fas fa-times"></i>
       <div class="form_container">
         <div class="form_box">
-          <p class="form_text">Nom (*)</p>
+          <p class="form_text">Nom</p>
           <input
             type="text"
             class="form_input"
@@ -14,7 +14,7 @@
           />
         </div>
         <div class="form_box">
-          <p class="form_text">Prenom (*)</p>
+          <p class="form_text">Prenom</p>
           <input
             type="text"
             class="form_input"
@@ -25,22 +25,26 @@
       </div>
       <div class="form_container">
         <div class="form_box">
-          <p class="form_text">Genre (*)</p>
+          <p class="form_text">Promo</p>
           <div class="radioBox">
             <div class="radio">
-              <input type="radio" id="Homme" name="Genre" value="Homme" />
-              <p>Homme</p>
+              <input type="radio" id="L3" name="promo" value="L3" />
+              <label for="L3">L3</label>
             </div>
             <div class="radio">
-              <input type="radio" id="Femme" name="Genre" value="Femme" />
-              <p>Femme</p>
+              <input type="radio" id="M1" name="promo" value="M1" />
+              <label for="M1">M1</label>
+            </div>
+            <div class="radio">
+              <input type="radio" id="M2" name="promo" value="M2" />
+              <label for="M2">M2</label>
             </div>
           </div>
         </div>
       </div>
       <div class="form_container">
         <div class="form_box">
-          <p class="form_text">Instruments</p>
+          <p class="form_text">Instruments (optionnel)</p>
           <div class="radioBox">
             <div class="radio">
               <input
@@ -49,7 +53,7 @@
                 name="Instruments"
                 value="Piano"
               />
-              <p>Piano</p>
+              <label for="Piano">Piano</label>
             </div>
             <div class="radio">
               <input
@@ -58,7 +62,7 @@
                 name="Instruments"
                 value="Guitare"
               />
-              <p>Guitare</p>
+              <label for="Guitare">Guitare</label>
             </div>
             <div class="radio">
               <input
@@ -67,7 +71,7 @@
                 name="Instruments"
                 value="Basse"
               />
-              <p>Basse</p>
+              <label for="basse">Basse</label>
             </div>
             <div class="radio">
               <input
@@ -76,7 +80,7 @@
                 name="Instruments"
                 value="Batterie"
               />
-              <p>batterie</p>
+              <label for="Batterie">batterie</label>
             </div>
             <div class="radio">
               <input
@@ -85,7 +89,7 @@
                 name="Instruments"
                 value="Autre"
               />
-              <p>Autre</p>
+              <label for="Autre">Autre</label>
             </div>
           </div>
         </div>
@@ -122,7 +126,7 @@
               <p>Un site conçu pour les musiciens de l'IMT Lille Douai</p>
             </div>
             <div class="items">
-              <div class="item">
+              <div class="item cursor">
                 <h2>Lavoisier</h2>
                 <img
                   class="home_img"
@@ -132,7 +136,7 @@
                 <p>Voir les disponibilités de la salle et la réserver</p>
                 <div class="type-2">
                   <div>
-                    <a @click="scrollToNextPage" class="btn btn-1">
+                    <a class="btn btn-1">
                       <span class="txt">Réserver</span>
                       <span class="round"
                         ><i class="fa fa-chevron-right"></i
@@ -141,7 +145,7 @@
                   </div>
                 </div>
               </div>
-              <div class="item">
+              <div class="item cursor">
                 <h2>Descartes</h2>
                 <img
                   class="home_img"
@@ -151,7 +155,7 @@
                 <p>Voir les disponibilités de la salle et la réserver</p>
                 <div class="type-2">
                   <div>
-                    <a @click="scrollToNextPage" class="btn btn-1">
+                    <a class="btn btn-1">
                       <span class="txt">Réserver</span>
                       <span class="round"
                         ><i class="fa fa-chevron-right"></i
@@ -160,7 +164,7 @@
                   </div>
                 </div>
               </div>
-              <div class="item">
+              <div class="item cursor" @click="goToMusicien">
                 <h2>Musiciens</h2>
                 <img
                   class="home_img"
@@ -169,14 +173,16 @@
                 />
                 <p>Voir les musiciens enregitrés sur cette plateforme</p>
                 <div class="type-2">
-                  <div>
-                    <a @click="scrollToNextPage" class="btn btn-1">
-                      <span class="txt">Découvrir</span>
-                      <span class="round"
-                        ><i class="fa fa-chevron-right"></i
-                      ></span>
-                    </a>
-                  </div>
+                  <router-link class="routerlink" :to="{ name: 'musiciens' }">
+                    <div>
+                      <a class="btn btn-1">
+                        <span class="txt">Découvrir</span>
+                        <span class="round"
+                          ><i class="fa fa-chevron-right"></i
+                        ></span>
+                      </a>
+                    </div>
+                  </router-link>
                 </div>
               </div>
             </div>
@@ -210,7 +216,7 @@ export default {
   },
   mounted: function() {
     if (localStorage.getItem("nom") != null) {
-      // localStorage.clear();       pour debug
+      //localStorage.clear(); //pour debug
       this.$store.dispatch("connect");
     }
   },
@@ -240,18 +246,34 @@ export default {
     checkForm() {
       let prenom = document.getElementById("Prenom").value;
       let nom = document.getElementById("Nom").value;
-      let homme = document.getElementById("Homme").checked;
-      let femme = document.getElementById("Femme").check;
-      if (prenom != "" && nom != "" && (homme == true || femme == true)) {
+      let l3 = document.getElementById("L3");
+      let m1 = document.getElementById("M1");
+      let m2 = document.getElementById("M2");
+      let promo = [l3, m1, m2];
+      let userPromo = "";
+      if (
+        prenom != "" &&
+        nom != "" &&
+        (l3.checked == true || m1.checked == true || m2.checked == true)
+      ) {
         localStorage.clear();
         localStorage.setItem("nom", nom);
         localStorage.setItem("prenom", prenom);
+        for (let year of promo) {
+          if (year.checked) {
+            userPromo = year.value;
+          }
+        }
+        localStorage.setItem("promo", userPromo);
         this.formError = false;
         this.connectFormState = false;
         this.$store.dispatch("connect");
       } else {
         this.formError = true;
       }
+    },
+    goToMusicien() {
+      this.$router.push({ name: "musiciens" });
     },
     quit() {
       this.connectFormState = false;
@@ -262,6 +284,10 @@ export default {
 </script>
 
 <style>
+.routerlink {
+  margin: 0;
+  padding: 0;
+}
 #closeButton {
   position: absolute;
   top: 20px;
@@ -305,6 +331,7 @@ export default {
   background: #dddddd44;
   border: 1px solid #dddddd9f;
   outline: none;
+  padding: 0 10px;
 }
 #form_title {
   font-size: 2em;
@@ -488,5 +515,8 @@ a .round i {
   height: 200px;
   transition: all ease 200ms;
   box-shadow: 0px 0px 30px rgba(37, 37, 37, 0.616);
+}
+.cursor {
+  cursor: pointer;
 }
 </style>
