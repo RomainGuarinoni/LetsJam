@@ -7,6 +7,7 @@
 <style>
 #app {
   font-family: "Roboto", sans-serif;
+  height: 100%;
 }
 * {
   margin: 0;

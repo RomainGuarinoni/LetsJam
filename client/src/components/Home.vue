@@ -126,7 +126,7 @@
               <p>Un site conçu pour les musiciens de l'IMT Lille Douai</p>
             </div>
             <div class="items">
-              <div class="item cursor">
+              <div class="item cursor" @click="route('lavoisier')">
                 <h2>Lavoisier</h2>
                 <img
                   class="home_img"
@@ -145,7 +145,7 @@
                   </div>
                 </div>
               </div>
-              <div class="item cursor">
+              <div class="item cursor" @click="route('descartes')">
                 <h2>Descartes</h2>
                 <img
                   class="home_img"
@@ -164,7 +164,7 @@
                   </div>
                 </div>
               </div>
-              <div class="item cursor" @click="goToMusicien">
+              <div class="item cursor" @click="route('musiciens')">
                 <h2>Musiciens</h2>
                 <img
                   class="home_img"
@@ -173,16 +173,14 @@
                 />
                 <p>Voir les musiciens enregitrés sur cette plateforme</p>
                 <div class="type-2">
-                  <router-link class="routerlink" :to="{ name: 'musiciens' }">
-                    <div>
-                      <a class="btn btn-1">
-                        <span class="txt">Découvrir</span>
-                        <span class="round"
-                          ><i class="fa fa-chevron-right"></i
-                        ></span>
-                      </a>
-                    </div>
-                  </router-link>
+                  <div>
+                    <a class="btn btn-1">
+                      <span class="txt">Découvrir</span>
+                      <span class="round"
+                        ><i class="fa fa-chevron-right"></i
+                      ></span>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -272,8 +270,20 @@ export default {
         this.formError = true;
       }
     },
-    goToMusicien() {
-      this.$router.push({ name: "musiciens" });
+    route(name) {
+      if (this.connect == false) {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+        this.connectFormState = true;
+      } else {
+        if (name == "lavoisier" || name == "descartes") {
+          this.$router.push({ path: "/salle/" + name });
+        } else {
+          this.$router.push({ name: "musiciens" });
+        }
+      }
     },
     quit() {
       this.connectFormState = false;
