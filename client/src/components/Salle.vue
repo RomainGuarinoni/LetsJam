@@ -50,14 +50,39 @@
                 class="info"
                 :class="{ enter: info, exit: !info }"
               >
-                <h3>Ce musicien est actuellement dans la salle :</h3>
-                <p>{{ fullName }}</p>
+                <div class="infoTxt">
+                  <h3>Ce musicien est actuellement dans la salle :</h3>
+                  <p>{{ fullName }}</p>
+                </div>
+                <div class="infoTxt">
+                  <h3>Heure à laquelle il a pris la salle :</h3>
+                  <p>{{ salleInfo.user.time }}</p>
+                </div>
               </div>
             </div>
 
             <div class="button">
               <!-- inserer code des boutons -->
-              <button>bouton</button>
+              <button
+                class="buttonSalle"
+                :disabled="
+                  !salleInfo.available &&
+                    !(
+                      salleInfo.user.nom == nom &&
+                      salleInfo.user.prenom == prenom
+                    )
+                "
+              >
+                <p v-if="salleInfo.available == true">Prendre la salle</p>
+                <p
+                  v-else-if="
+                    salleInfo.user.nom == nom && salleInfo.user.prenom == prenom
+                  "
+                >
+                  Libérer la salle
+                </p>
+                <p v-else>Attendre...</p>
+              </button>
             </div>
           </div>
         </div>
@@ -75,12 +100,15 @@ export default {
   props: ["salle"],
   data() {
     return {
+      nom: localStorage.getItem("nom"),
+      prenom: localStorage.getItem("prenom"),
       info: false,
       salleInfo: {
-        available: true,
+        available: false,
         user: {
           nom: "Guarinoni",
           prenom: "Romain",
+          time: "15:58",
         },
       },
     };
@@ -102,6 +130,45 @@ export default {
 </script>
 
 <style scoped>
+.infoTxt {
+  display: flex;
+  align-items: center;
+}
+
+.button {
+  text-align: center;
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+.buttonSalle {
+  margin-bottom: 20px;
+  outline: none;
+  color: #ac1010;
+  background: white;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  width: auto;
+  border: 3px solid #ac1010;
+  height: 40px;
+  font-size: 1.5em;
+  font-weight: bold;
+  padding: 10px;
+  cursor: pointer;
+  transition: all ease 200ms;
+}
+.buttonSalle:hover {
+  transform: scale(1.1);
+}
+.buttonSalle:disabled {
+  transition: none;
+  opacity: 0.7;
+  cursor: default;
+  pointer-events: none;
+}
 .content {
   flex: 1;
   padding: 0 40px;
@@ -204,7 +271,10 @@ i {
 
   padding: 10px;
 }
-
+.info p {
+  font-size: 1.2em;
+  margin: 10px 0;
+}
 .enter {
   animation: enter 300ms;
 }
