@@ -214,7 +214,7 @@ export default {
   },
   mounted: function() {
     if (localStorage.getItem("nom") != null) {
-      //localStorage.clear(); //pour debug
+      localStorage.clear(); //pour debug
       this.$store.dispatch("connect");
     }
   },

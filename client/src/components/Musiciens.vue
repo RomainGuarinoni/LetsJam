@@ -1,5 +1,5 @@
 <template>
-  <div class="musiciens">
+  <div class="musiciens" v-if="api">
     <Navbar change_color="true" />
     <h1>
       <i class="fas fa-music"></i>Tous ces musiciens utilisent déjà la
@@ -21,6 +21,7 @@
 <script>
 import Navbar from "./Navbar";
 import Musiciencard from "./Musiciencard";
+import axios from "axios";
 export default {
   components: {
     Navbar,
@@ -28,7 +29,7 @@ export default {
   },
   data() {
     return {
-      musiciens: [
+      musiciens: Array /*[
         {
           prenom: "Romain",
           nom: "Guarinoni",
@@ -93,8 +94,16 @@ export default {
           promo: "L3",
           instruments: ["Batterie", "Guitare", "Piano"],
         },
-      ],
+      ],*/,
+      api: false,
     };
+  },
+  mounted: function() {
+    axios
+      .get("http://localhost:3000/info/musiciens")
+      .then((response) => (this.musiciens = response.data))
+      .catch((e) => console.log(e))
+      .finally(() => (this.api = true));
   },
 };
 </script>

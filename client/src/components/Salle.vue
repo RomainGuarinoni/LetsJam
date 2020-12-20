@@ -1,5 +1,5 @@
 <template>
-  <div class="salle" id="salle">
+  <div class="salle" id="salle" v-if="api">
     <Navbar change_color="true" />
     <div class="salleBox">
       <div class="contour">
@@ -93,6 +93,7 @@
 
 <script>
 import Navbar from "./Navbar";
+import axios from "axios";
 export default {
   components: {
     Navbar,
@@ -100,17 +101,19 @@ export default {
   props: ["salle"],
   data() {
     return {
+      api: false,
       nom: localStorage.getItem("nom"),
       prenom: localStorage.getItem("prenom"),
-      info: false,
-      salleInfo: {
+      info: true,
+      salleInfo: Object /*{
+        // peut etre change ca avec le vuex pour eviter de redemander ici des valeurs....
         available: false,
         user: {
           nom: "Guarinoni",
           prenom: "Romain",
           time: "15:58",
         },
-      },
+      },*/,
     };
   },
   computed: {
@@ -125,6 +128,18 @@ export default {
       let name = this.salleInfo.user.prenom + " " + this.salleInfo.user.nom;
       return name;
     },
+  },
+  created: function() {
+    axios
+      .get("http://localhost:3000/" + this.salle)
+      .then(
+        (response) => (
+          (this.salleInfo = response.data), console.log(response.data)
+        )
+      )
+      .catch((error) => console.log("error : " + error))
+      .finally(() => (this.api = true));
+    //.finally(() => (this.api = true));
   },
 };
 </script>
