@@ -17,14 +17,16 @@
       </div>
     </div>
     <div class="status">
-      <div class="statustxt">
-        <p>{{ status }}</p>
+      <div class="statusContent">
+        <div class="cercle"></div>
+        <div class="text"><p>Libre</p></div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 import img1 from "../assets/Descartes.jpg";
 import img2 from "../assets/Lavoisier.jpg";
 export default {
@@ -34,8 +36,15 @@ export default {
       imgTab: [img1, img2],
     };
   },
+  computed: {
+    ...mapState({
+      info: "state",
+    }),
+  },
   mounted: function() {
-    console.log(this.img);
+    let name = this.name;
+    console.log(name);
+    console.log(this.info.name);
   },
 };
 </script>
@@ -92,8 +101,18 @@ i {
   justify-content: flex-start;
   align-items: flex-end;
 }
-.statustxt {
+.statusContent {
+  display: flex;
+  align-items: center;
   margin: 10px;
+}
+.cercle {
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  border: none;
+  background: green;
+  margin-right: 5px;
 }
 .name {
   font-weight: bold;

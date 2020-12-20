@@ -42,6 +42,11 @@ export default {
   align-items: center;
   flex-wrap: wrap;
 }
+@media all and (max-width: 542px) {
+  #app {
+    overflow: scroll;
+  }
+}
 * {
   margin: 0;
   padding: 0;
