@@ -1,30 +1,36 @@
 <template>
-  <div
-    id="card"
-    :style="{
-      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.575), rgba(0, 0, 0, 0.329)),url(${
-        imgTab[index - 1]
-      })`,
-    }"
-  >
-    <div class="header">
-      <div class="salleInfo">
-        <p class="salleNumber">Salle {{ index }}</p>
-        <p class="name">{{ name }}</p>
-      </div>
-      <div id="bouton">
-        <i class="fas fa-chevron-right"></i>
-      </div>
+  <div class="all">
+    <div class="button">
+      <i class="far fa-check-circle"></i>
+      <p>Réserver</p>
     </div>
-    <div class="status">
-      <div class="statusContent">
-        <div
-          class="cercle"
-          :class="{ green: this.info.available, red: !this.info.available }"
-        ></div>
-        <div class="text">
-          <p class="greenFont" v-if="info.available">Libre</p>
-          <p class="redFont" v-else>occupée depuis 30 min</p>
+    <div
+      id="card"
+      :style="{
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.575), rgba(0, 0, 0, 0.329)),url(${
+          imgTab[index - 1]
+        })`,
+      }"
+    >
+      <div class="header">
+        <div class="salleInfo">
+          <p class="salleNumber">Salle {{ index }}</p>
+          <p class="name">{{ name }}</p>
+        </div>
+        <div id="bouton">
+          <i class="fas fa-chevron-right"></i>
+        </div>
+      </div>
+      <div class="status">
+        <div class="statusContent">
+          <div
+            class="cercle"
+            :class="{ green: this.info.available, red: !this.info.available }"
+          ></div>
+          <div class="text">
+            <p class="greenFont" v-if="info.available">Libre</p>
+            <p class="redFont" v-else>occupée depuis 30 min</p>
+          </div>
         </div>
       </div>
     </div>
@@ -53,12 +59,23 @@ export default {
 </script>
 
 <style scoped>
+.all {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  justify-content: center;
+  height: 320px;
+  width: 250px;
+}
 #card {
   margin: 10px;
   height: 320px;
   color: white;
   width: 250px;
   display: flex;
+  position: absolute;
+  z-index: 1;
   flex-direction: column;
   flex-wrap: wrap;
   border-radius: 10px;
@@ -66,16 +83,12 @@ export default {
   background-size: 200%;
   background-position: center;
   background-repeat: no-repeat;
-  cursor: pointer;
 }
-#card:hover {
-  box-shadow: 5px 5px 5px rgba(54, 54, 54, 0.623);
+.all:hover > #card {
+  filter: grayscale(100%);
 }
-#card:hover #bouton {
-  transform: translate(10px);
-}
-#card:hover #bouton i {
-  transform: translate(2px);
+.all:hover > .button {
+  display: flex;
 }
 i {
   transition: all ease 200ms;
@@ -134,5 +147,30 @@ i {
 }
 .text {
   font-size: 15px;
+}
+.button {
+  background: var(--green);
+  width: 180px;
+  height: 50px;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  display: flow;
+  border-radius: 7px;
+  border: none;
+  z-index: 2;
+  color: white;
+  font-size: 18px;
+  position: relative;
+  cursor: pointer;
+  transition: all ease 200ms;
+}
+.button:hover {
+  transform: scale(1.1);
+}
+.button i {
+  position: absolute;
+  top: 25;
+  left: 20px;
 }
 </style>
