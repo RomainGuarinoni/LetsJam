@@ -18,15 +18,20 @@
     </div>
     <div class="status">
       <div class="statusContent">
-        <div class="cercle"></div>
-        <div class="text"><p>Libre</p></div>
+        <div
+          class="cercle"
+          :class="{ green: this.info.available, red: !this.info.available }"
+        ></div>
+        <div class="text">
+          <p class="greenFont" v-if="info.available">Libre</p>
+          <p class="redFont" v-else>occupée depuis 30 min</p>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
 import img1 from "../assets/Descartes.jpg";
 import img2 from "../assets/Lavoisier.jpg";
 export default {
@@ -34,17 +39,15 @@ export default {
   data() {
     return {
       imgTab: [img1, img2],
+      info: Object,
     };
   },
-  computed: {
-    ...mapState({
-      info: "state",
-    }),
-  },
   mounted: function() {
-    let name = this.name;
-    console.log(name);
-    console.log(this.info.name);
+    if (this.name == "Lavoisier") {
+      this.info = this.$store.state.Lavoisier;
+    } else {
+      this.info = this.$store.state.Descartes;
+    }
   },
 };
 </script>
@@ -107,15 +110,29 @@ i {
   margin: 10px;
 }
 .cercle {
-  width: 10px;
-  height: 10px;
+  width: 15px;
+  height: 15px;
   border-radius: 100%;
   border: none;
-  background: green;
   margin-right: 5px;
+}
+.green {
+  background: var(--green);
+}
+.red {
+  background: var(--orange);
+}
+.greenFont {
+  color: var(--green);
+}
+.redFont {
+  color: var(--orange);
 }
 .name {
   font-weight: bold;
   font-size: 25px;
+}
+.text {
+  font-size: 15px;
 }
 </style>

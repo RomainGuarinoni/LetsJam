@@ -1,21 +1,38 @@
 <template>
-  <div id="app">
-    <router-view />
+  <div id="box">
+    <div class="container">
+      <div class="titre">
+        <p><span class="underline">CHOISISSEZ</span> VOTRE SALLE</p>
+      </div>
+      <div class="salleCard">
+        <SalleCard
+          index="1"
+          name="Descartes"
+          status="libre"
+          img="'../assets/Descartes.jpg'"
+        />
+        <SalleCard
+          index="2"
+          name="Lavoisier"
+          status="Prise"
+          img="'../assets/Lavoisier.jpg'"
+        />
+      </div>
+      <div class="info"><p>?</p></div>
+    </div>
   </div>
 </template>
+
 <script>
+import SalleCard from "./SalleCard";
 export default {
-  mounted: function() {
-    if (this.$store.state.connect) {
-      this.$router.push({ name: "Home" });
-    } else {
-      this.$router.push({ name: "Connect" });
-    }
+  components: {
+    SalleCard,
   },
 };
 </script>
 <style>
-#app {
+#box {
   font-family: "Open Sans", sans-serif;
   height: 100%;
   width: 100%;
@@ -33,8 +50,6 @@ export default {
 * {
   margin: 0;
   padding: 0;
-  --green: #0cc863;
-  --orange: #ffc53d;
 }
 .container {
   width: 900px;
