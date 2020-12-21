@@ -1,8 +1,19 @@
 <template>
   <div class="all">
-    <div class="button">
+    <div
+      class="button"
+      :class="{ green: info.available, red: !info.available }"
+    >
       <i class="far fa-check-circle"></i>
-      <p>Réserver</p>
+      <p v-if="info.available">Réserver</p>
+      <p
+        v-else-if="
+          !info.available && info.user.nom == nom && info.user.prenom == prenom
+        "
+      >
+        Libérer
+      </p>
+      <p v-else>Attendre...</p>
     </div>
     <div
       id="card"
@@ -44,6 +55,8 @@ export default {
   props: ["index", "name", "status", "img"],
   data() {
     return {
+      nom: localStorage.getItem("nom"),
+      prenom: localStorage.getItem("prenom"),
       imgTab: [img1, img2],
       info: Object,
     };
@@ -149,7 +162,6 @@ i {
   font-size: 15px;
 }
 .button {
-  background: var(--green);
   width: 180px;
   height: 50px;
   display: none;
