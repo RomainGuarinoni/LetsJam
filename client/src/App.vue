@@ -3,8 +3,11 @@
     <router-view />
   </div>
 </template>
+
 <script>
 export default {
+  name: "App",
+
   mounted: function() {
     if (this.$store.state.connect) {
       this.$router.push({ name: "Home" });
@@ -14,7 +17,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 #app {
   font-family: "Open Sans", sans-serif;
   height: 100%;
@@ -35,46 +38,5 @@ export default {
   padding: 0;
   --green: #0cc863;
   --orange: #ffc53d;
-}
-.container {
-  width: 900px;
-}
-.info {
-  width: 25px;
-  height: 25px;
-  background: rgba(212, 211, 211, 0.521);
-  border: none;
-  border-radius: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: all ease 200ms;
-  cursor: pointer;
-  position: absolute;
-  bottom: 50px;
-  right: 50px;
-}
-.info:hover {
-  transform: scale(1.2);
-}
-.titre {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 50px;
-  margin-bottom: 50px;
-}
-.titre p {
-  font-weight: bold;
-  font-size: 40px;
-}
-.underline {
-  border-bottom: 5px solid black;
-}
-.salleCard {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
 }
 </style>

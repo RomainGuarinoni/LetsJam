@@ -18,7 +18,7 @@
     <div
       id="card"
       :style="{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.575), rgba(0, 0, 0, 0.329)),url(${
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.400), rgba(0, 0, 0, 0.300)),url(${
           imgTab[index - 1]
         })`,
       }"
@@ -55,18 +55,20 @@ export default {
   props: ["index", "name", "status", "img"],
   data() {
     return {
-      nom: localStorage.getItem("nom"),
-      prenom: localStorage.getItem("prenom"),
+      nom: "",
+      prenom: "",
       imgTab: [img1, img2],
       info: Object,
     };
   },
-  mounted: function() {
+  created: function() {
     if (this.name == "Lavoisier") {
       this.info = this.$store.state.Lavoisier;
     } else {
       this.info = this.$store.state.Descartes;
     }
+    this.nom = localStorage.getItem("nom");
+    this.prenom = localStorage.getItem("prenom");
   },
 };
 </script>
@@ -78,14 +80,16 @@ export default {
   align-items: center;
   position: relative;
   justify-content: center;
-  height: 320px;
-  width: 250px;
+  flex-wrap: wrap;
+  height: 360px;
+  width: 290px;
+  margin: 10px;
 }
 #card {
   margin: 10px;
-  height: 320px;
+  height: 360px;
   color: white;
-  width: 250px;
+  width: 290px;
   display: flex;
   position: absolute;
   z-index: 1;

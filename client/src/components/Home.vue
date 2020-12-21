@@ -18,7 +18,14 @@
           img="'../assets/Lavoisier.jpg'"
         />
       </div>
-      <div class="info"><p>?</p></div>
+    </div>
+    <div class="bottom">
+      <div class="info" @click="question"><p>Un problème?</p></div>
+      <div class="my-2 profil" @click="changeProfil">
+        <v-btn color="warning" fab dark>
+          <v-icon>mdi-account-circle</v-icon>
+        </v-btn>
+      </div>
     </div>
   </div>
 </template>
@@ -29,6 +36,15 @@ export default {
   components: {
     SalleCard,
   },
+
+  methods: {
+    changeProfil() {
+      this.$router.push({ name: "Connect" });
+    },
+    question() {
+      this.$router.push({ name: "Question" });
+    },
+  },
 };
 </script>
 <style>
@@ -37,14 +53,40 @@ export default {
   height: 100%;
   width: 100%;
   position: fixed;
+
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
 }
-@media all and (max-width: 542px) {
-  #app {
+@media all and (max-width: 618px) {
+  #box {
     overflow: scroll;
+  }
+}
+@media all and (max-width: 1208px) {
+  .info {
+    position: absolute;
+    top: 100px;
+    right: auto !important;
+    left: 70px;
+    bottom: auto !important;
+  }
+}
+@media all and (max-width: 956px) {
+  .info {
+    position: static !important;
+  }
+  .profil {
+    position: static !important;
+  }
+  .bottom {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 20px;
+    width: 100%;
   }
 }
 * {
@@ -55,14 +97,12 @@ export default {
   width: 900px;
 }
 .info {
-  width: 25px;
-  height: 25px;
-  background: rgba(212, 211, 211, 0.521);
-  border: none;
-  border-radius: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  border: 2px solid var(--orange);
+  border-radius: 10px;
+  padding: 10px;
+  background: var(--orange);
+  color: white;
+  font-size: 1.1em;
   transition: all ease 200ms;
   cursor: pointer;
   position: absolute;
@@ -70,7 +110,7 @@ export default {
   right: 50px;
 }
 .info:hover {
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
 .titre {
   display: flex;
@@ -91,5 +131,14 @@ export default {
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
+}
+.profil {
+  position: absolute;
+  top: 100px;
+  right: 100px;
+  transition: all ease 200ms;
+}
+.profil:hover {
+  transform: scale(1.1);
 }
 </style>
