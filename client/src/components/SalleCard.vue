@@ -1,16 +1,13 @@
 <template>
   <div class="all" v-if="api">
-    <!-- <div
+    <div
       class="button"
-      @click="test"
       :class="{ green: info.available, red: !info.available }"
     >
       <i class="far fa-check-circle"></i>
       <p v-if="info.available">Réserver</p>
       <p
-        v-else-if="
-          !info.available && info.user.nom == nom && info.user.prenom == prenom
-        "
+        v-else-if="!info.available && info.nom == nom && info.prenom == prenom"
       >
         Libérer
       </p>
@@ -31,26 +28,20 @@
           <p class="salleNumber">Salle {{ index }}</p>
           <p class="name">{{ name }}</p>
         </div>
-        <div id="bouton">
-          <i class="fas fa-chevron-right"></i>
-        </div>
+        <div
+          class="cercle"
+          :class="{ green: this.info.available, red: !this.info.available }"
+        ></div>
       </div>
       <div class="status">
         <div class="statusContent">
-          <div
-            class="cercle"
-            :class="{ green: this.info.available, red: !this.info.available }"
-          ></div>
           <div class="text">
             <p class="greenFont" v-if="info.available">Libre</p>
-            <p class="redFont" v-else>
-              occupée par {{ fullName }} depuis 30 min
-            </p>
+            <p class="redFont" v-else>occupée par {{ fullName }} {{ time }}</p>
           </div>
         </div>
       </div>
-    </div>-->
-    <p>{{ info }}</p>
+    </div>
   </div>
 </template>
 
@@ -71,7 +62,7 @@ export default {
   },
   computed: {
     fullName() {
-      let name = this.info.user.prenom + " " + this.info.user.nom;
+      let name = this.info.prenom + " " + this.info.nom;
       return name;
     },
     info() {
@@ -81,17 +72,34 @@ export default {
         return this.infoTab[1];
       }
     },
-  },
-  methods: {
-    test() {
-      // recupérer une date !
+    time() {
+      let time = "depuis environ ";
       let date = new Date();
-      date.setTime = Date.now();
-
-      console.log(date.getHours());
-      console.log(date.getMinutes());
+      let date2 = new Date(this.info.date);
+      if (date.getHours() - (date2.getHours() - 1) == 0) {
+        if (date.getMinutes() - date2.getMinutes() < 5) {
+          time += "5 minutes";
+        } else if (date.getMinutes() - date2.getMinutes() < 10) {
+          time += "10 minutes";
+        } else if (date.getMinutes() - date2.getMinutes() < 15) {
+          time += "15 minutes";
+        } else if (date.getMinutes() - date2.getMinutes() < 30) {
+          time += "30 minutes";
+        } else {
+          time += "1 heure";
+        }
+      } else {
+        if (date.getMinutes() - date2.getMinutes() < 30) {
+          time += "1 heure et 30min";
+        } else {
+          time += "2 heures";
+        }
+      }
+      console.log(time);
+      return time;
     },
   },
+  methods: {},
   mounted: function() {
     axios
       .get("http://localhost:3000/info")
@@ -146,16 +154,12 @@ i {
   align-items: center;
   flex-wrap: wrap;
 }
-#bouton {
+
+.cercle {
   width: 28px;
   height: 28px;
-  color: black;
   border-radius: 100%;
-  background-color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: all ease 200ms;
+  border: none;
 }
 .status {
   flex: 1;
@@ -166,15 +170,11 @@ i {
 .statusContent {
   display: flex;
   align-items: center;
+  justify-content: center;
   margin: 10px;
+  width: 100%;
 }
-.cercle {
-  width: 15px;
-  height: 15px;
-  border-radius: 100%;
-  border: none;
-  margin-right: 5px;
-}
+
 .green {
   background: var(--green);
 }
@@ -192,7 +192,7 @@ i {
   font-size: 25px;
 }
 .text {
-  font-size: 15px;
+  font-size: 17px;
   text-align: center;
 }
 .button {

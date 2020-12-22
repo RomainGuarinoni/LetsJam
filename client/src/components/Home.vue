@@ -1,5 +1,5 @@
 <template>
-  <div id="box" @click="update">
+  <div id="box">
     <div class="container">
       <div class="titre">
         <p><span class="underline">CHOISISSEZ</span> VOTRE SALLE</p>
@@ -43,9 +43,6 @@ export default {
     },
     question() {
       this.$router.push({ name: "Question" });
-    },
-    update() {
-      this.$store.dispatch("update_info");
     },
   },
 };

@@ -5,6 +5,7 @@ exports.info = function (req, res, next) {
       console.log(err);
     }
     res.status(201).json(result);
-    console.log("results : " + result[0].date.getMinutes());
+    let tes = new Date();
+    console.log(tes);
   });
 };
