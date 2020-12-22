@@ -6,7 +6,7 @@ const http = require("http").Server(app);
 const cors = require("cors");
 const PORT = 3000;
 const salleRouter = require("./routes/Salle");
-
+const Salle = require("./models/Salles");
 mongoose
   .connect(
     "mongodb+srv://admin:admin@cluster0.ikoqc.mongodb.net/Cluster0?retryWrites=true&w=majority",
@@ -40,8 +40,9 @@ io.on("connection", function (socket) {
   socket.on("SEND_MESSAGE", function (data) {
     io.emit("MESSAGE", data);
   });
-  socket.on("TEST", (msg) => {
-    console.log("test worked : " + msg);
+  socket.on("UPDATE", (data) => {
+    let update = JSON.parse(data);
+    console.log(update);
   });
 });
 

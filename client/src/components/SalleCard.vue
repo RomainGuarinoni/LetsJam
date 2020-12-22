@@ -2,7 +2,7 @@
   <div class="all" v-if="api">
     <div
       class="button"
-      @click="test"
+      @click="update"
       :class="{ green: info.available, red: !info.available }"
     >
       <i class="far fa-check-circle"></i>
@@ -60,6 +60,7 @@ export default {
       imgTab: [img1, img2],
       api: false,
       infoTab: Array,
+      info: null,
       socket: io.connect("http://localhost:3000"),
     };
   },
@@ -68,18 +69,12 @@ export default {
       let name = this.info.prenom + " " + this.info.nom;
       return name;
     },
-    info() {
-      if (this.name == "Lavoisier") {
-        return this.infoTab[0];
-      } else {
-        return this.infoTab[1];
-      }
-    },
+
     time() {
       let time = "depuis environ ";
       let date = new Date();
       let date2 = new Date(this.info.date);
-      if (date.getHours() - (date2.getHours() - 1) == 0) {
+      if (date.getHours() - date2.getHours() == 0) {
         if (date.getMinutes() - date2.getMinutes() < 5) {
           time += "5 minutes";
         } else if (date.getMinutes() - date2.getMinutes() < 10) {
@@ -103,14 +98,52 @@ export default {
     },
   },
   methods: {
-    test() {
-      this.socket.emit("TEST", "message");
+    update() {
+      //this.socket.emit("TEST", JSON.stringify(this.info));
+      if (this.info.available == true) {
+        let update = {
+          salle: this.name,
+          available: false,
+          nom: this.nom,
+          prenom: this.prenom,
+          date: new Date(),
+        };
+        this.socket.emit("UPDATE", JSON.stringify(update));
+        if (this.name == "Lavoisier") {
+          this.info = update;
+        } else {
+          this.info = update;
+        }
+        console.log(this.infoTab);
+        console.log(this.info);
+      } else if (this.info.nom == this.nom && this.info.prenom == this.prenom) {
+        let update = {
+          salle: this.name,
+          available: true,
+          nom: "",
+          prenom: "",
+          date: new Date(),
+        };
+        this.socket.emit("UPDATE", JSON.stringify(update));
+        if (this.name == "Lavoisier") {
+          this.info = update;
+        } else {
+          this.info = update;
+        }
+      }
     },
   },
   mounted: function() {
     axios
       .get("http://localhost:3000/info")
-      .then((res) => (this.infoTab = res.data))
+      .then((res) => {
+        this.infoTab = res.data;
+        if (this.name == "Lavoisier") {
+          this.info = this.infoTab[0];
+        } else {
+          this.info = this.infoTab[1];
+        }
+      })
       .catch((err) => console.log(err))
       .finally(() => (this.api = true));
   },
