@@ -42,7 +42,30 @@ io.on("connection", function (socket) {
   });
   socket.on("UPDATE", (data) => {
     let update = JSON.parse(data);
-    console.log(update);
+    console.log("update");
+    Salle.updateOne(
+      { salle: update.salle },
+      {
+        available: update.available,
+        nom: update.nom,
+        prenom: update.prenom,
+        date: update.date,
+      },
+      function (err, res) {
+        if (err) {
+          console.log(err);
+        }
+      }
+    );
+    let newSalle;
+    Salle.find().exec(function (err, res) {
+      if (err) {
+        console.log(err);
+      }
+      newSalle = JSON.stringify(res);
+      console.log(newSalle);
+      socket.broadcast.emit("NEW", newSalle);
+    });
   });
 });
 

@@ -146,6 +146,15 @@ export default {
       })
       .catch((err) => console.log(err))
       .finally(() => (this.api = true));
+    this.socket.on("NEW", (data) => {
+      console.log("RECEIVED NEW DATA : " + data);
+      let salle = JSON.parse(data);
+      if (this.name == "Lavoisier") {
+        this.info = salle[0];
+      } else {
+        this.info = salle[1];
+      }
+    });
   },
 };
 </script>
