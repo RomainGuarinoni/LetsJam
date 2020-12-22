@@ -46,6 +46,7 @@ export default {
       if (this.nom != "" && this.prenom != "") {
         localStorage.setItem("nom", this.nom);
         localStorage.setItem("prenom", this.prenom);
+        localStorage.setItem("connect", "true");
         this.$router.push({ name: "Home" });
         this.error = false;
       } else {

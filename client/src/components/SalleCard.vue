@@ -2,6 +2,7 @@
   <div class="all">
     <div
       class="button"
+      @click="test"
       :class="{ green: info.available, red: !info.available }"
     >
       <i class="far fa-check-circle"></i>
@@ -13,7 +14,9 @@
       >
         Libérer
       </p>
-      <p v-else>Attendre...</p>
+      <p v-else>
+        Attendre...
+      </p>
     </div>
     <div
       id="card"
@@ -40,7 +43,9 @@
           ></div>
           <div class="text">
             <p class="greenFont" v-if="info.available">Libre</p>
-            <p class="redFont" v-else>occupée depuis 30 min</p>
+            <p class="redFont" v-else>
+              occupée par {{ fullName }} depuis 30 min
+            </p>
           </div>
         </div>
       </div>
@@ -55,20 +60,35 @@ export default {
   props: ["index", "name", "status", "img"],
   data() {
     return {
-      nom: "",
-      prenom: "",
+      nom: localStorage.getItem("nom"),
+      prenom: localStorage.getItem("prenom"),
       imgTab: [img1, img2],
-      info: Object,
     };
   },
-  created: function() {
-    if (this.name == "Lavoisier") {
-      this.info = this.$store.state.Lavoisier;
-    } else {
-      this.info = this.$store.state.Descartes;
-    }
-    this.nom = localStorage.getItem("nom");
-    this.prenom = localStorage.getItem("prenom");
+  computed: {
+    fullName() {
+      let name = this.info.user.prenom + " " + this.info.user.nom;
+      return name;
+    },
+    info() {
+      if (this.name == "Lavoisier") {
+        let info = this.$store.state.info[0];
+        return info;
+      } else {
+        let info = this.$store.state.info[1];
+        return info;
+      }
+    },
+  },
+  methods: {
+    test() {
+      // recupérer une date !
+      let date = new Date();
+      date.setTime = Date.now();
+
+      console.log(date.getHours());
+      console.log(date.getMinutes());
+    },
   },
 };
 </script>
@@ -164,6 +184,7 @@ i {
 }
 .text {
   font-size: 15px;
+  text-align: center;
 }
 .button {
   width: 180px;

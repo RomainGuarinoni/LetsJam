@@ -9,7 +9,7 @@ export default {
   name: "App",
 
   mounted: function() {
-    if (this.$store.state.connect) {
+    if (localStorage.getItem("connect") != null) {
       this.$router.push({ name: "Home" });
     } else {
       this.$router.push({ name: "Connect" });
