@@ -5,7 +5,5 @@ exports.info = function (req, res, next) {
       console.log(err);
     }
     res.status(201).json(result);
-    let tes = new Date();
-    console.log(tes);
   });
 };

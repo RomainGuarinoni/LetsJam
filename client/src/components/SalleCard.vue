@@ -2,6 +2,7 @@
   <div class="all" v-if="api">
     <div
       class="button"
+      @click="test"
       :class="{ green: info.available, red: !info.available }"
     >
       <i class="far fa-check-circle"></i>
@@ -49,6 +50,7 @@
 import img1 from "../assets/Descartes.jpg";
 import img2 from "../assets/Lavoisier.jpg";
 import axios from "axios";
+import io from "socket.io-client";
 export default {
   props: ["index", "name", "status", "img"],
   data() {
@@ -58,6 +60,7 @@ export default {
       imgTab: [img1, img2],
       api: false,
       infoTab: Array,
+      socket: io.connect("http://localhost:3000"),
     };
   },
   computed: {
@@ -95,11 +98,15 @@ export default {
           time += "2 heures";
         }
       }
-      console.log(time);
+
       return time;
     },
   },
-  methods: {},
+  methods: {
+    test() {
+      this.socket.emit("TEST", "message");
+    },
+  },
   mounted: function() {
     axios
       .get("http://localhost:3000/info")
