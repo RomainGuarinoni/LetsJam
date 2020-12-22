@@ -1,6 +1,6 @@
 <template>
-  <div class="all">
-    <div
+  <div class="all" v-if="api">
+    <!-- <div
       class="button"
       @click="test"
       :class="{ green: info.available, red: !info.available }"
@@ -49,13 +49,15 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>-->
+    <p>{{ info }}</p>
   </div>
 </template>
 
 <script>
 import img1 from "../assets/Descartes.jpg";
 import img2 from "../assets/Lavoisier.jpg";
+import axios from "axios";
 export default {
   props: ["index", "name", "status", "img"],
   data() {
@@ -63,6 +65,8 @@ export default {
       nom: localStorage.getItem("nom"),
       prenom: localStorage.getItem("prenom"),
       imgTab: [img1, img2],
+      api: false,
+      infoTab: Array,
     };
   },
   computed: {
@@ -72,11 +76,9 @@ export default {
     },
     info() {
       if (this.name == "Lavoisier") {
-        let info = this.$store.state.info[0];
-        return info;
+        return this.infoTab[0];
       } else {
-        let info = this.$store.state.info[1];
-        return info;
+        return this.infoTab[1];
       }
     },
   },
@@ -89,6 +91,13 @@ export default {
       console.log(date.getHours());
       console.log(date.getMinutes());
     },
+  },
+  mounted: function() {
+    axios
+      .get("http://localhost:3000/info")
+      .then((res) => (this.infoTab = res.data))
+      .catch((err) => console.log(err))
+      .finally(() => (this.api = true));
   },
 };
 </script>
