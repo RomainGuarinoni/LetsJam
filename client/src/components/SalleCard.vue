@@ -59,7 +59,6 @@ export default {
       prenom: localStorage.getItem("prenom"),
       imgTab: [img1, img2],
       api: false,
-      infoTab: Array,
       info: null,
       socket: io.connect("http://localhost:3000"),
     };
@@ -109,13 +108,7 @@ export default {
           date: new Date(),
         };
         this.socket.emit("UPDATE", JSON.stringify(update));
-        if (this.name == "Lavoisier") {
-          this.info = update;
-        } else {
-          this.info = update;
-        }
-        console.log(this.infoTab);
-        console.log(this.info);
+        this.info = update;
       } else if (this.info.nom == this.nom && this.info.prenom == this.prenom) {
         let update = {
           salle: this.name,
@@ -125,11 +118,7 @@ export default {
           date: new Date(),
         };
         this.socket.emit("UPDATE", JSON.stringify(update));
-        if (this.name == "Lavoisier") {
-          this.info = update;
-        } else {
-          this.info = update;
-        }
+        this.info = update;
       }
     },
   },
@@ -137,17 +126,15 @@ export default {
     axios
       .get("http://localhost:3000/info")
       .then((res) => {
-        this.infoTab = res.data;
         if (this.name == "Lavoisier") {
-          this.info = this.infoTab[0];
+          this.info = res.data[0];
         } else {
-          this.info = this.infoTab[1];
+          this.info = res.data[1];
         }
       })
       .catch((err) => console.log(err))
       .finally(() => (this.api = true));
     this.socket.on("NEW", (data) => {
-      console.log("RECEIVED NEW DATA : " + data);
       let salle = JSON.parse(data);
       if (this.name == "Lavoisier") {
         this.info = salle[0];
