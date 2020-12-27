@@ -38,6 +38,14 @@
         <div class="statusContent">
           <div class="text">
             <p class="greenFont" v-if="info.available">Libre</p>
+            <p
+              v-else-if="
+                !info.available && info.nom == nom && info.prenom == prenom
+              "
+              class="redFont"
+            >
+              Libérer la salle
+            </p>
             <p class="redFont" v-else>occupée par {{ fullName }} {{ time }}</p>
           </div>
         </div>
@@ -71,22 +79,46 @@ export default {
 
     time() {
       let time = "depuis environ ";
-      let date = new Date();
-      let date2 = new Date(this.info.date);
-      if (date.getHours() - date2.getHours() == 0) {
-        if (date.getMinutes() - date2.getMinutes() < 5) {
+      let date_actuelle = new Date();
+      let date_salle = new Date(this.info.date);
+      if (date_actuelle.getHours() - date_salle.getHours() == 0) {
+        if (date_actuelle.getMinutes() - date_salle.getMinutes() < 5) {
           time += "5 minutes";
-        } else if (date.getMinutes() - date2.getMinutes() < 10) {
+        } else if (date_actuelle.getMinutes() - date_salle.getMinutes() < 10) {
           time += "10 minutes";
-        } else if (date.getMinutes() - date2.getMinutes() < 15) {
+        } else if (date_actuelle.getMinutes() - date_salle.getMinutes() < 15) {
           time += "15 minutes";
-        } else if (date.getMinutes() - date2.getMinutes() < 30) {
+        } else if (date_actuelle.getMinutes() - date_salle.getMinutes() < 30) {
+          time += "30 minutes";
+        } else {
+          time += "1 heure";
+        }
+      } else if (
+        date_actuelle.getHours() - date_salle.getHours() == 1 &&
+        date_actuelle.getMinutes() - date_salle.getMinutes() < 0
+      ) {
+        if (date_actuelle.getMinutes() + date_salle.getMinutes() - 60 < 5) {
+          time += "5 minutes";
+        } else if (
+          date_actuelle.getMinutes() + date_salle.getMinutes() - 60 <
+          10
+        ) {
+          time += "10 minutes";
+        } else if (
+          date_actuelle.getMinutes() + date_salle.getMinutes() - 60 <
+          15
+        ) {
+          time += "15 minutes";
+        } else if (
+          date_actuelle.getMinutes() + date_salle.getMinutes() - 60 <
+          30
+        ) {
           time += "30 minutes";
         } else {
           time += "1 heure";
         }
       } else {
-        if (date.getMinutes() - date2.getMinutes() < 30) {
+        if (date_actuelle.getMinutes() - date_salle.getMinutes() < 30) {
           time += "1 heure et 30min";
         } else {
           time += "2 heures";
@@ -107,6 +139,7 @@ export default {
           prenom: this.prenom,
           date: new Date(),
         };
+        console.log("date de prise : " + update.date);
         this.socket.emit("UPDATE", JSON.stringify(update));
         this.info = update;
       } else if (this.info.nom == this.nom && this.info.prenom == this.prenom) {
@@ -133,7 +166,28 @@ export default {
         }
       })
       .catch((err) => console.log(err))
+      //fonctions qui libere la salle si cette derniere est prise depuis plus de 2 heures
+      .then(() => {
+        setInterval(() => {
+          let date_salle = new Date(this.info.date);
+          let date_act = new Date();
+          if (
+            date_salle.getDay() != date_act.getDay() ||
+            date_act.getHours() - date_salle.getHours() >= 2
+          ) {
+            let update = {
+              salle: this.name,
+              available: true,
+              nom: "",
+              prenom: "",
+              date: new Date(),
+            };
+            this.socket.emit("UPDATE", JSON.stringify(update));
+          }
+        }, 2000);
+      })
       .finally(() => (this.api = true));
+
     this.socket.on("NEW", (data) => {
       let salle = JSON.parse(data);
       if (this.name == "Lavoisier") {
