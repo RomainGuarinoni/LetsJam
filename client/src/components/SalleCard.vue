@@ -139,7 +139,6 @@ export default {
           prenom: this.prenom,
           date: new Date(),
         };
-        console.log("date de prise : " + update.date);
         this.socket.emit("UPDATE", JSON.stringify(update));
         this.info = update;
       } else if (this.info.nom == this.nom && this.info.prenom == this.prenom) {
@@ -168,6 +167,22 @@ export default {
       .catch((err) => console.log(err))
       //fonctions qui libere la salle si cette derniere est prise depuis plus de 2 heures
       .then(() => {
+        let date_salle = new Date(this.info.date);
+        let date_act = new Date();
+        if (
+          date_salle.getDay() != date_act.getDay() ||
+          date_act.getHours() - date_salle.getHours() >= 2
+        ) {
+          let update = {
+            salle: this.name,
+            available: true,
+            nom: "",
+            prenom: "",
+            date: new Date(),
+          };
+          this.socket.emit("UPDATE", JSON.stringify(update));
+        }
+        //verifie toutes les 5 minutes pour libérer la salle si besoin
         setInterval(() => {
           let date_salle = new Date(this.info.date);
           let date_act = new Date();
@@ -184,7 +199,7 @@ export default {
             };
             this.socket.emit("UPDATE", JSON.stringify(update));
           }
-        }, 2000);
+        }, 300000);
       })
       .finally(() => (this.api = true));
 
