@@ -66,6 +66,7 @@ export default {
       nom: localStorage.getItem("nom"),
       prenom: localStorage.getItem("prenom"),
       imgTab: [img1, img2],
+      time: "",
       api: false,
       info: null,
       socket: io.connect("http://localhost:3000"),
@@ -76,8 +77,33 @@ export default {
       let name = this.info.prenom + " " + this.info.nom;
       return name;
     },
-
-    time() {
+  },
+  methods: {
+    update() {
+      //this.socket.emit("TEST", JSON.stringify(this.info));
+      if (this.info.available == true) {
+        let update = {
+          salle: this.name,
+          available: false,
+          nom: this.nom,
+          prenom: this.prenom,
+          date: new Date(),
+        };
+        this.socket.emit("UPDATE", JSON.stringify(update));
+        this.info = update;
+      } else if (this.info.nom == this.nom && this.info.prenom == this.prenom) {
+        let update = {
+          salle: this.name,
+          available: true,
+          nom: "",
+          prenom: "",
+          date: new Date(),
+        };
+        this.socket.emit("UPDATE", JSON.stringify(update));
+        this.info = update;
+      }
+    },
+    timeCalc() {
       let time = "depuis environ ";
       let date_actuelle = new Date();
       let date_salle = new Date(this.info.date);
@@ -125,33 +151,7 @@ export default {
         }
       }
 
-      return time;
-    },
-  },
-  methods: {
-    update() {
-      //this.socket.emit("TEST", JSON.stringify(this.info));
-      if (this.info.available == true) {
-        let update = {
-          salle: this.name,
-          available: false,
-          nom: this.nom,
-          prenom: this.prenom,
-          date: new Date(),
-        };
-        this.socket.emit("UPDATE", JSON.stringify(update));
-        this.info = update;
-      } else if (this.info.nom == this.nom && this.info.prenom == this.prenom) {
-        let update = {
-          salle: this.name,
-          available: true,
-          nom: "",
-          prenom: "",
-          date: new Date(),
-        };
-        this.socket.emit("UPDATE", JSON.stringify(update));
-        this.info = update;
-      }
+      this.time = time;
     },
   },
   mounted: function() {
@@ -201,7 +201,13 @@ export default {
           }
         }, 300000);
       })
-      .finally(() => (this.api = true));
+      .finally(() => {
+        this.timeCalc();
+        this.api = true;
+        setInterval(() => {
+          this.timeCalc();
+        }, 300000);
+      });
 
     this.socket.on("NEW", (data) => {
       let salle = JSON.parse(data);

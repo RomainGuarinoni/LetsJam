@@ -102,6 +102,10 @@ export default {
   position: absolute;
   top: 50px;
   left: 200px;
+  transition: all ease 200ms;
+}
+.retour:hover {
+  transform: scale(1.1);
 }
 .retour i {
   font-size: 30px;
