@@ -36,13 +36,9 @@ const io = require("socket.io")(http, {
 });
 
 io.on("connection", function (socket) {
-  console.log("connecte");
-  socket.on("SEND_MESSAGE", function (data) {
-    io.emit("MESSAGE", data);
-  });
   socket.on("UPDATE", (data) => {
     let update = JSON.parse(data);
-    console.log("update");
+    //recherche la salle dans la base de donnée et on la modifie avec les nouvelles infos
     Salle.updateOne(
       { salle: update.salle },
       {
@@ -53,17 +49,17 @@ io.on("connection", function (socket) {
       },
       function (err, res) {
         if (err) {
-          console.log(err);
+          console.log("err : " + err);
         }
       }
     );
     let newSalle;
+    //on recherche toutes les infos des deux salles et les envoient &a tous le monde
     Salle.find().exec(function (err, res) {
       if (err) {
-        console.log(err);
+        console.log("err : " + err);
       }
       newSalle = JSON.stringify(res);
-      console.log(newSalle);
       socket.broadcast.emit("NEW", newSalle);
     });
   });
