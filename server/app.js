@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const http = require("http").Server(app);
 const cors = require("cors");
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const salleRouter = require("./routes/Salle");
 const Salle = require("./models/Salles");
 mongoose
