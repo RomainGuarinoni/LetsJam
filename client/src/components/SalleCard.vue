@@ -69,7 +69,7 @@ export default {
       time: "",
       api: false,
       info: null,
-      socket: io.connect("http://localhost:3000"),
+      socket: io(),
     };
   },
   computed: {
@@ -156,7 +156,7 @@ export default {
   },
   mounted: function() {
     axios
-      .get("http://localhost:3000/info")
+      .get("info")
       .then((res) => {
         if (this.name == "Lavoisier") {
           this.info = res.data[0];
@@ -206,7 +206,7 @@ export default {
         this.api = true;
         setInterval(() => {
           this.timeCalc();
-          console.log("calcul time");
+          console.log(this.info.date);
         }, 300000);
       });
 

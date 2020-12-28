@@ -70,7 +70,7 @@ export default {
 <style>
 .dialog {
   width: 500px;
-  height: 250px;
+  height: 300px;
   position: relative;
   z-index: 2;
   background: white;

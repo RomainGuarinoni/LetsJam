@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const http = require("http").Server(app);
 const cors = require("cors");
-const PORT = 3000;
+
 const salleRouter = require("./routes/Salle");
 const Salle = require("./models/Salles");
 mongoose
@@ -64,7 +64,15 @@ io.on("connection", function (socket) {
     });
   });
 });
+const PORT = process.env.PORT || 3000;
 
+if (process.env.NODE_ENV === "production") {
+  // Static folder
+  app.use(express.static(__dirname + "/public/"));
+
+  // Handle SPA
+  app.get(/.*/, (req, res) => res.sendFile(__dirname + "/public/index.html"));
+}
 http.listen(PORT, () => {
   console.log("Listening on port " + PORT);
 });
