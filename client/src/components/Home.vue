@@ -14,31 +14,33 @@
         <p @click="dialog = false">No</p>
       </div>
     </div>
-    <div class="container">
-      <div class="titre">
-        <p><span class="underline">CHOISISSEZ</span> VOTRE SALLE</p>
+    <div class="test">
+      <div class="container">
+        <div class="titre">
+          <p><span class="underline">CHOISISSEZ</span> VOTRE SALLE</p>
+        </div>
+        <div class="salleCard">
+          <SalleCard
+            index="1"
+            name="Descartes"
+            status="libre"
+            img="'../assets/Descartes.jpg'"
+          />
+          <SalleCard
+            index="2"
+            name="Lavoisier"
+            status="Prise"
+            img="'../assets/Lavoisier.jpg'"
+          />
+        </div>
       </div>
-      <div class="salleCard">
-        <SalleCard
-          index="1"
-          name="Descartes"
-          status="libre"
-          img="'../assets/Descartes.jpg'"
-        />
-        <SalleCard
-          index="2"
-          name="Lavoisier"
-          status="Prise"
-          img="'../assets/Lavoisier.jpg'"
-        />
-      </div>
-    </div>
-    <div class="bottom">
-      <div class="info" @click="question"><p>Un problème?</p></div>
-      <div class="my-2 profil" @click="dialog = !dialog">
-        <v-btn color="warning" fab dark>
-          <v-icon>mdi-account-circle</v-icon>
-        </v-btn>
+      <div class="bottom">
+        <div class="info" @click="question"><p>Un problème?</p></div>
+        <div class="my-2 profil" @click="dialog = !dialog">
+          <v-btn color="warning" fab dark>
+            <v-icon>mdi-account-circle</v-icon>
+          </v-btn>
+        </div>
       </div>
     </div>
   </div>
@@ -123,7 +125,19 @@ export default {
   font-family: "Open Sans", sans-serif;
   height: 100%;
   width: 100%;
-  position: relative;
+  position: fixed;
+  z-index: 1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.test {
+  font-family: "Open Sans", sans-serif;
+  height: 100%;
+  width: 100%;
+  position: absolute;
   z-index: 1;
 
   display: flex;
@@ -159,8 +173,6 @@ export default {
     align-items: center;
     margin-top: 20px;
     width: 100%;
-    position: absolute;
-    z-index: 1;
   }
 }
 * {
@@ -169,8 +181,6 @@ export default {
 }
 .container {
   width: 900px;
-  position: absolute;
-  z-index: 1;
 }
 .info {
   border: 2px solid var(--orange);

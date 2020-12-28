@@ -206,6 +206,7 @@ export default {
         this.api = true;
         setInterval(() => {
           this.timeCalc();
+          console.log("calcul time");
         }, 300000);
       });
 
