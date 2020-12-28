@@ -5,8 +5,8 @@
   "main": "App.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server/App.js",
-    "dev" : "nodemon server/App.js"
+    "start": "node server/app.js",
+    "dev" : "nodemon server/app.js"
     
   },
   "author": "Romain Guarinoni",
