@@ -8,11 +8,11 @@ Ce site permet de gérer la réservation des salles de musiques de l'école IMT 
 
 ## Navigation rapide
 
-1. [Comment ça marche ?](#Comment-ça-marche-?)
-2. [Pas besoin de raffraichir la page ! ](#Pas-besoin-de-raffraichir-la-page-!)
+1. [Comment ça marche ?](#Comment-ça-marche)
+2. [Pas besoin de raffraichir la page ! ](#Pas-besoin-de-raffraichir-la-page)
 3. [Stack utilisée](#Stack-utilisée)
 
-## Comment ça marche ?
+## Comment ça marche
 
 1. **Créer un compte**
 
@@ -34,7 +34,7 @@ Pour rendre la salle, passez la souris au dessus de la salle et cliquez sur le b
 
 ![](./client/src/assets/libérer.png)
 
-## Pas besoin de raffraichir la page !
+## Pas besoin de raffraichir la page
 
 Ce site web marche avec les websockets, autremement dit, toutes les infos des salles se mettent a jour toutes seuls sans que vous ayez a raffraichir la page !
 
