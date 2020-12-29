@@ -76,8 +76,12 @@ export default {
     margin-left: 0 !important;
   }
 }
+@media all and (max-width: 618px) {
+  #boxAll {
+    overflow: scroll !important;
+  }
+}
 #boxAll {
-  overflow: scroll;
   font-family: "Open Sans", sans-serif;
   height: 100%;
   width: 100%;
