@@ -1,12 +1,12 @@
 <template>
   <div id="box">
     <div class="dialog" v-show="dialog">
-      <div class="dialog-head"><h2>Voulez-vous changez de compte ?</h2></div>
+      <div class="dialog-head"><h2>Voulez-vous changer de compte ?</h2></div>
       <div class="dialog-txt">
         <p>
           Changez de compte va vous empêcher de libérer les salles que vous avez
           prises et, par conséquent, empécher le bon fonctionnement de cette
-          platforme
+          plateforme
         </p>
       </div>
       <div class="dialog-button">
