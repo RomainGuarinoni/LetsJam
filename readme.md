@@ -8,9 +8,11 @@ Ce site permet de gérer la réservation des salles de musiques de l'école IMT 
 
 ## Navigation rapide
 
-1. [Comment ça marche ?](#Comment-ça-marche)
-2. [Pas besoin de raffraichir la page ! ](#Pas-besoin-de-raffraichir-la-page)
+1. [Comment ça marche ](#Comment-ça-marche)
+2. [Pas besoin de raffraichir la page ](#Pas-besoin-de-raffraichir-la-page)
 3. [Stack utilisée](#Stack-utilisée)
+4. [Améliorations futures](#Améliorations-futures)
+5. [Me contacter](#Me-contacter)
 
 ## Comment ça marche
 
@@ -54,3 +56,16 @@ le site est hébergé sur la plateforme **Heroku**.
 ### Websockets
 
 Pour la gestion des websockets, j'ai utilisé la librairie **socket.io**
+
+## Amélioration futures
+
+- [ ] Ajouter un historique des personnes qui ont prisent les salles
+- [ ] Ajouter un moyen de réserver un créneau horraire pour les salles
+- [ ] Ajouter plus de personnalisation des comptes
+- [ ] Créer tout un environement pour les musiciens leur permettant de discuter entre eux, de créer des groupes ...
+
+## Me contacter
+
+1. mail : romain.guar91@gmail.com ou romain.guarinoni@etu.imt-lille-douai.fr
+2. [linkedin](https://www.linkedin.com/in/romain-guarinoni-535445189/)
+3.
