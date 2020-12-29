@@ -2,11 +2,11 @@
   <div id="boxAll">
     <div class="questionBox">
       <div class="retour" @click="retour">
-        <i class="fas fa-chevron-left"></i>
+        <font-awesome-icon class="icon" :icon="['fas', 'chevron-left']" />
       </div>
       <p class="titre">Questions</p>
       <div class="question">
-        <h2>• J'ai oublié de libérer la salle, que se passe t'il ?</h2>
+        <h2>• J'ai oublié de libérer la salle, que se passe-t-il ?</h2>
         <p>
           Les salles se libèrent automatiquement au bout de 2 heures. Si vous
           voulez jouer plus longtemps que deux heures, pensez à reprendre la
@@ -16,12 +16,12 @@
       <div class="question">
         <h2>• Je n'arrive pas à rendre la salle</h2>
         <p>
-          Vous avez surrement du changer de compte entre temps et vous n'êtes
-          plus connecté avec le même compte qui a pris la salle. Cliquez sur le
+          Vous avez sûrement dû changer de compte entre temps et vous n'êtes
+          plus connecté avec le même compte qui a prit la salle. Cliquez sur le
           bouton
           <v-icon>mdi-account-circle</v-icon>, reconnectez-vous avec le bon
           compte, et normalement vous pourrez libérer la salle. Autrement,
-          envoyé un mail à :
+          envoyez un mail à :
           <a href="mailto:romain.guar91@gmail.com">romain.guar91@gmail.com</a>
         </p>
       </div>
@@ -37,18 +37,18 @@
             class=" social"
             href="https://www.linkedin.com/in/romain-guarinoni-535445189/"
             target="_blank"
-            ><i class="fab fa-linkedin"></i></a
+            ><font-awesome-icon class="i" :icon="['fab', 'linkedin']"/></a
           ><a
             class=" social"
             href="https://www.instagram.com/romain.guar91/?hl=fr"
             target="_blank"
-            ><i class="fab fa-instagram-square"></i></a
+            ><font-awesome-icon class="i" :icon="['fab', 'instagram']"/></a
           ><a
             class=" social"
             href="https://www.facebook.com/romain.bat17/"
             target="_blank"
-            ><i class="fab fa-facebook-square"></i
-          ></a>
+            ><font-awesome-icon class="i" :icon="['fab', 'facebook']"
+          /></a>
         </p>
       </div>
     </div>
@@ -107,13 +107,13 @@ export default {
 .retour:hover {
   transform: scale(1.1);
 }
-.retour i {
-  font-size: 30px;
+.icon {
+  font-size: 20px;
 }
 .social {
   margin: 0 20px;
 }
-i {
+.i {
   color: black;
   font-size: 40px;
 }
