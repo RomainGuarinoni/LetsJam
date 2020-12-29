@@ -68,4 +68,3 @@ Pour la gestion des websockets, j'ai utilisé la librairie **socket.io**
 
 1. mail : romain.guar91@gmail.com ou romain.guarinoni@etu.imt-lille-douai.fr
 2. [linkedin](https://www.linkedin.com/in/romain-guarinoni-535445189/)
-3.
