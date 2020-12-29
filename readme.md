@@ -15,9 +15,11 @@ Sur la page de connexion du site, rentrer juste votre _nom_ ainsi que votree _pr
 2. **Réserver une salle**
 
    1. Si la salle est libre, vous pouvez cliquer sur le bouton réserver en passant la souris sur la salle ou en cliquant sur la salle ( quand on est sur télephone ou tablette)
+
       ![](./client/src/assets/réserver.png)
 
    2. Si la salle est prise, il faut attendre que son utilisateurs la libèrent. Les salles se libèrent automatiquement au bout de 2 heures.
+
       ![](./client/src/assets/occupé.png)
 
 3. **Rendre la salle**
