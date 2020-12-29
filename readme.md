@@ -8,8 +8,8 @@ Ce site permet de gérer la réservation des salles de musiques de l'école IMT 
 
 ## Navigation rapide
 
-1. [Comment ça marche ?](#Comment-ça-marche)
-2. [Pas besoin de raffraichir la page ! ](#Pas-besoin-de-raffraichir-la-page)
+1. [Comment ça marche ?](#Comment-ça-marche ?)
+2. [Pas besoin de raffraichir la page ! ](#Pas-besoin-de-raffraichir-la-page !)
 3. [Stack utilisée](#Stack-utilisée)
 
 ## Comment ça marche ?
