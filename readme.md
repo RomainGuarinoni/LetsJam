@@ -31,8 +31,7 @@ Sur la page de connexion du site, rentrer juste votre _nom_ ainsi que votree _pr
 3. **Rendre la salle**
 
 Pour rendre la salle, passez la souris au dessus de la salle et cliquez sur le bouton _libérer_ ou cliquez sur la salle ( quand on est sur télephone ou tablette)
-
-    ![](./client/src/assets/libérer.png)
+![](./client/src/assets/libérer.png)
 
 ## Pas besoin de raffraichir la page !
 
