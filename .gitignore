@@ -1,2 +1,8 @@
 node_modules
 #client
+
+client/src/components
+client/public
+client/src/plugins
+client/src/router
+client/App.vue
